@@ -8,4 +8,9 @@
 
 -spec init(rebar_state:t()) -> {ok, rebar_state:t()}.
 init(State) ->
-    {ok, rebar_state:add_resource(State, {github, rebar_github_resource})}.
+    io:format("~p ~p init: '~p' ~n", [?MODULE, ?LINE, init]),
+    NewState = rebar_state:add_resource(State, {pkg, rebar_new_pkg_resource}),
+    NewState2 = rebar_state:add_resource(NewState, {git, rebar_new_git_resource}),
+    NewState3 = rebar_state:add_resource(NewState2, {hg, rebar_new_hg_resource}),
+    {ok, NewState3}.
+
